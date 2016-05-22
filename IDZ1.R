@@ -41,17 +41,16 @@ Pab<- length(x[a <= x & x <= b]) /  length(x); Pab;
 ################################################################
 #Предположим, что исходные наблюдения являются выборкой из распределения Пуассона
 #c.1. Построим оценку максимального правдоподбия параметра theta
-#f(X, theta) = theta^sum(X)*exp(-theta*length(X))/sum(X!)
-#ll(X,theta) = -theta*length(X)+sum(X)*ln theta - ln sum(X!)
-#d/d theta [ll(X,theta)] = - length(X) + sum(X) / theta == 0
-#theta_= sum(X) / length(X) = mean
-theta_<-mean; theta_;
-
+library(fitdistrplus)
+mle<-fitdist(x,"pois",method='mme')
+mle$estimate
 #c.2. Построим оценку theta по методу моментов
-
+mme<-fitdist(x,"pois",method='mme')
+mme$estimate
 
 #c.3. Найдем смещение оценок
-
+a = mle$estimate - mean
+#Оценка не смещенная!
 
 ################################################################
 #d. Построить асимптотический доверительный интервал уровня значимости a1 для параметра
